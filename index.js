@@ -43,13 +43,13 @@ app.get('/*', (req, res) => {
         return m.tz(process.env.TIMEZONE || 'Europe/Copenhagen').format(process.env.DATETIME_FORMAT || 'YYYY-M-D @ k:mm')
     }
 
-    db.query('select name, website, phone, tickersymbol, accountnumber, type from salesforce.account').then(rs => {
+    db.query('select * from salesforce.account').then(rs => {
         // build result object for template
         let context = {'updated': formatDate()}
         context.accountlist = rs.rows
 		res.render('accountlist', context)
     }).catch(err => {
-        res.status(500).send(`Unable to get response from database (${err.message})`).end()
+        res.status(500).send(`Unable to get response from database (${err.message}) - did you create a Heroku Connect Mapping yet?`).end()
     })
 })
 
