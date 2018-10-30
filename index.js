@@ -20,9 +20,9 @@ const db = (function() {
         // return stub
         return {
             'query': () => {
-                return {
+                return Promise.resolve({
                     rows: []
-                }
+                })
             }
         }
     }
